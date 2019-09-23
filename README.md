@@ -1,2 +1,1 @@
-# Medvedev Andrei, ML home work
-## '19 Autumn term
+# Medvedev Andrei, ML homework ('19, autumn)
