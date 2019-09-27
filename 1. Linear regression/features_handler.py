@@ -4,13 +4,18 @@ import pandas
 
 dataset_folder_name = 'Dataset'
 training_folder_name = 'Training'
-testing_folder_name = 'Testing'
+testing_folder_name = 'Testing\TestSet'
 dataset_file_format = 'Features_Variant_'
+test_dataset_file_format = 'Test_Case_'
 csv_ext = '.csv'
 
-dataset_file = os.path.join(dataset_folder_name,        \
-                            training_folder_name,       \
+training_df_file = os.path.join(dataset_folder_name,\
+                            training_folder_name,\
                             dataset_file_format + '1' + csv_ext)
+
+testing_df_file = os.path.join(dataset_folder_name,\
+                            testing_folder_name,\
+                            test_dataset_file_format + '1' + csv_ext)
 
 likes = 1
 #   Page Popularity/likes
@@ -121,9 +126,16 @@ target_str = 'Target'
 #   Target
 #   The no of comments in next H hrs(H is given in Feature no 39).
 
-#   Import training data frame
-def export():
-    dataset_path = os.path.abspath(dataset_file)
+#   Export training data frame
+def export_training():
+    dataset_path = os.path.abspath(training_df_file)
+    return pandas.read_csv(dataset_path,    \
+                           header=None,     \
+                           names=[str(i) for i in range(0, target-1)] + [target_str])
+
+#   Export testing data frame
+def export_testing():
+    dataset_path = os.path.abspath(testing_df_file)
     return pandas.read_csv(dataset_path,    \
                            header=None,     \
                            names=[str(i) for i in range(0, target-1)] + [target_str])
@@ -140,12 +152,18 @@ def split_target(df):
     df_features = df.drop(target_str, axis=1)
     return df_features, df_target
 
+#   Get normalization values (min and range (max - min))
+def get_normalization_values(df):
+    df_max = df.max(axis=0)
+    df_min = df.min(axis=0)
+    df_range = df_max - df_min
+    df_range[df_range == 0] = 1
+    return (df_min, df_range)
+
 #   Normalize data frame
-def normalize(df):
-    df_mean = df.mean()
-    df_var = df.var()
-    df = (df - df_mean) / df_var
-    return df.fillna(0)
+def normalize(df, df_min, df_range):
+    df = (df - df_min) / df_range
+    return df
 
 #   Add additional column for b-parameter
 def append_b(df):

@@ -1,34 +1,40 @@
 import numpy
+import math
 import os
-import metrics
+import math_helper
 
-max_gen = 5000
+def compute(X, Y, w, params):
+    learning_rate = params.learning_rate
+    overfitting_penalty = params.overfitting_penalty
+    max_gen = params.max_gen
+    trace = params.trace
+    output_file = params.output_file
+    rows_per_gen = params.rows_per_gen
+    
+    if output_file is not None:
+        #   Print initialization values
+        output_file.write('Mode: stochastic\n')
+        output_file.write('Learning rate: %f\n' % learning_rate)
+        output_file.write('Number of rows per epoch: %f\n' % rows_per_gen)
+        output_file.write('Initial w: %s\n' % w)
+        output_file.write('Max generation: %d\n' % max_gen)
+        output_file.write('\n')
 
-def get_direction(v):
-    norm = numpy.linalg.norm(v)
-    return numpy.asarray([x / norm for x in v])
-
-def compute(X, Y, eps, learning_rate, w, output_file, rc = 10, full_output = False):
-    #   Print initialization values
-    output_file.write('Mode: stochastic\n')
-    output_file.write('Eps: %f\n' % eps)
-    output_file.write('Learning rate: %f\n' % learning_rate)
-    output_file.write('Number of rows per epoch: %f\n' % rc)
-    output_file.write('Initial w: %s\n' % w)
-    output_file.write('Max generation: %d\n' % max_gen)
-    output_file.write('\n')
-
-    output_file.flush()
-    os.fsync(output_file.fileno())    
+        output_file.flush()
+        os.fsync(output_file.fileno())    
 
     total = X.shape[0]
     gradient = [0] * X.shape[1]
-    loss = 0
     cur_gen = 0
 
     cur_index = 0
     while cur_gen < max_gen:
-        if cur_index + rc >= total:
+        mse = 0
+        rmse = 0
+        r_2 = 0
+        
+        #   Randomize if needed
+        if cur_index + rows_per_gen >= total:
             full_frame = numpy.concatenate((X, Y.reshape(total,1)), axis=1)
             numpy.random.shuffle(full_frame)
             Y = full_frame[:, -1]
@@ -36,18 +42,17 @@ def compute(X, Y, eps, learning_rate, w, output_file, rc = 10, full_output = Fal
             cur_index = 0
         gradient = [0] * X.shape[1]
         cur_gen += 1
+        x = X[cur_index : cur_index + rows_per_gen]
+        y = Y[cur_index : cur_index + rows_per_gen]
+        gradient = math_helper.calculate_gradient(x, y, w, overfitting_penalty)
 
-        x = X[cur_index : cur_index + rc]
-        y = Y[cur_index : cur_index + rc]
-
-        if full_output:
-            (loss, r_2, rmse) = metrics.calculate(X, Y, w)
-            gradient = metrics.calculate_gradient(x, y, w)
+        if output_file is not None:
+            (mse, rmse, r_2) = math_helper.calculate(X, Y, w)
             
             output_file.write('Generation: %d\n' % cur_gen)
-            output_file.write('Loss: %f\n' % loss)
-            output_file.write('R2: %f\n' % r_2)
+            output_file.write('MSE: %f\n' % mse)
             output_file.write('RMSE: %f\n' % rmse)
+            output_file.write('R2: %f\n' % r_2)
             output_file.write('Gradient: %s\n' % gradient)
             output_file.write('W: %s\n' % w)
             output_file.write('\n')
@@ -57,11 +62,12 @@ def compute(X, Y, eps, learning_rate, w, output_file, rc = 10, full_output = Fal
                 output_file.flush()
                 os.fsync(output_file.fileno())
 
-            print("Gen: %5d | Loss: %5.2f | R2: %5.3f | RMSE: %.3f" % (cur_gen, loss, r_2, rmse))           
-        else:
-            gradient = metrics.calculate_gradient(x, y, w)
+        if trace:
+            if mse == 0 or rmse == 0 or r_2 == 0:
+                (mse, rmse, r_2) = math_helper.calculate(X, Y, w)
+            print("Gen: %5d | MSE: %5.5f | RMSE: %5.5f | R2: %5.5f" % (cur_gen, mse, rmse, r_2)) 
 
-        gradient_dir = get_direction(gradient)
-        w = w - gradient_dir * learning_rate
-        cur_index += rc
+        gradient_dir = math_helper.get_direction(gradient)
+        w = w - gradient_dir * learning_rate * (1 / math.log(cur_gen + 1))
+        cur_index += rows_per_gen
     return w
