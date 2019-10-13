@@ -1,5 +1,4 @@
 import os
-import numpy
 import pandas
 
 dataset_folder_name = 'Dataset'
@@ -9,13 +8,13 @@ dataset_file_format = 'Features_Variant_'
 test_dataset_file_format = 'Test_Case_'
 csv_ext = '.csv'
 
-training_df_file = os.path.join(dataset_folder_name,\
-                            training_folder_name,\
-                            dataset_file_format + '1' + csv_ext)
+training_df_file = os.path.join(dataset_folder_name,
+                                training_folder_name,
+                                dataset_file_format + '1' + csv_ext)
 
-testing_df_file = os.path.join(dataset_folder_name,\
-                            testing_folder_name,\
-                            test_dataset_file_format + '1' + csv_ext)
+testing_df_file = os.path.join(dataset_folder_name,
+                               testing_folder_name,
+                               test_dataset_file_format + '1' + csv_ext)
 
 likes = 1
 #   Page Popularity/likes
@@ -107,13 +106,13 @@ hours = 39
 #   Other feature
 #   This describes the H hrs, for which we have the target variable/ comments received.
 
-pp_weakday = range(40,47)
+pp_weakday = range(40, 47)
 #   Post published weekday
 #   Binary Encoding
 #   Weekdays feature
 #   This represents the day(Sunday...Saturday) on which the post was published.
 
-weakdays = range(47,53)
+weakdays = range(47, 53)
 #   Base DateTime weekday
 #   Binary Encoding
 #   Weekdays feature
@@ -121,6 +120,8 @@ weakdays = range(47,53)
 
 target = 54
 target_str = 'Target'
+
+
 #   Target Variable
 #   Decimal
 #   Target
@@ -129,16 +130,18 @@ target_str = 'Target'
 #   Export training data frame
 def export_training():
     dataset_path = os.path.abspath(training_df_file)
-    return pandas.read_csv(dataset_path,    \
-                           header=None,     \
-                           names=[str(i) for i in range(0, target-1)] + [target_str])
+    return pandas.read_csv(dataset_path,
+                           header=None,
+                           names=[str(i) for i in range(0, target - 1)] + [target_str])
+
 
 #   Export testing data frame
 def export_testing():
     dataset_path = os.path.abspath(testing_df_file)
-    return pandas.read_csv(dataset_path,    \
-                           header=None,     \
-                           names=[str(i) for i in range(0, target-1)] + [target_str])
+    return pandas.read_csv(dataset_path,
+                           header=None,
+                           names=[str(i) for i in range(0, target - 1)] + [target_str])
+
 
 #   Randomize data frame
 def randomize(df):
@@ -146,24 +149,28 @@ def randomize(df):
     #   drop=True ~ delete old index column
     return df.sample(frac=1).reset_index(drop=True)
 
+
 #   Exclude target from data frame
 def split_target(df):
     df_target = df[target_str]
     df_features = df.drop(target_str, axis=1)
     return df_features, df_target
 
+
 #   Get normalization values (min and range (max - min))
 def get_normalization_values(df):
     df_max = df.max(axis=0)
     df_min = df.min(axis=0)
     df_range = df_max - df_min
-    df_range[df_range == 0] = 1
-    return (df_min, df_range)
+    df_range[df_range == 0] = 0.5
+    return df_min, df_range
+
 
 #   Normalize data frame
 def normalize(df, df_min, df_range):
     df = (df - df_min) / df_range
     return df
+
 
 #   Add additional column for b-parameter
 def append_b(df):
