@@ -107,3 +107,6 @@ for n_train, n_test in kfold.split(X):
     rmse = calculate_rmse(error)
     print('Final RMSE: ' + str(rmse))
     RMSE_test.append(rmse)
+
+results = pandas.DataFrame(numpy.vstack([RMSE_test]), index=['Test'])
+results = pandas.concat([results, results.mean(axis=1).rename('Mean'), results.std(axis=1).rename('Std')], axis=1)
