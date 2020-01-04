@@ -1,0 +1,195 @@
+===
+New split
+Starting training
+Step:  0.01
+Current epoch: 0
+Batch number: 0	| RMSE: [[4.33770205]]
+Batch number: 2000	| RMSE: [[1.34605792]]
+Batch number: 4000	| RMSE: [[1.22059877]]
+Batch number: 6000	| RMSE: [[1.23194784]]
+Batch number: 8000	| RMSE: [[1.21177248]]
+Batch number: 10000	| RMSE: [[1.19061365]]
+Batch number: 12000	| RMSE: [[1.18640364]]
+Batch number: 14000	| RMSE: [[1.16965607]]
+Batch number: 16000	| RMSE: [[1.14905667]]
+Batch number: 18000	| RMSE: [[1.14229261]]
+Current epoch: 1
+Batch number: 0	| RMSE: [[1.15998460]]
+Batch number: 2000	| RMSE: [[1.14096647]]
+Batch number: 4000	| RMSE: [[1.14059877]]
+Batch number: 6000	| RMSE: [[1.14593484]]
+Batch number: 8000	| RMSE: [[1.13177248]]
+Batch number: 10000	| RMSE: [[1.13065365]]
+Batch number: 12000	| RMSE: [[1.13440364]]
+Batch number: 14000	| RMSE: [[1.12960607]]
+Batch number: 16000	| RMSE: [[1.12954667]]
+Batch number: 18000	| RMSE: [[1.11221261]]
+Current epoch: 2
+Batch number: 0	| RMSE: [[1.15755421]]
+Batch number: 2000	| RMSE: [[1.14603746]]
+Batch number: 4000	| RMSE: [[1.12354377]]
+Batch number: 6000	| RMSE: [[1.13224136]]
+Batch number: 8000	| RMSE: [[1.10177238]]
+Batch number: 10000	| RMSE: [[1.09061365]]
+Batch number: 12000	| RMSE: [[1.08640337]]
+Batch number: 14000	| RMSE: [[1.06962607]]
+Batch number: 16000	| RMSE: [[1.04905667]]
+Batch number: 18000	| RMSE: [[1.04250261]]
+Training is completed
+Final RMSE: [[1.08153289]]
+===
+New split
+Starting training
+Step:  0.01
+Current epoch: 0
+Batch number: 0	| RMSE: [[4.12659405]]
+Batch number: 2000	| RMSE: [[1.51705712]]
+Batch number: 4000	| RMSE: [[1.31478024]]
+Batch number: 6000	| RMSE: [[1.27542991]]
+Batch number: 8000	| RMSE: [[1.21172027]]
+Batch number: 10000	| RMSE: [[1.18715364]]
+Batch number: 12000	| RMSE: [[1.17697311]]
+Batch number: 14000	| RMSE: [[1.15012347]]
+Batch number: 16000	| RMSE: [[1.14705961]]
+Batch number: 18000	| RMSE: [[1.14359702]]
+Current epoch: 1
+Batch number: 0	| RMSE: [[1.16186513]]
+Batch number: 2000	| RMSE: [[1.14097129]]
+Batch number: 4000	| RMSE: [[1.13871369]]
+Batch number: 6000	| RMSE: [[1.13910016]]
+Batch number: 8000	| RMSE: [[1.13712903]]
+Batch number: 10000	| RMSE: [[1.13110125]]
+Batch number: 12000	| RMSE: [[1.12970126]]
+Batch number: 14000	| RMSE: [[1.12840157]]
+Batch number: 16000	| RMSE: [[1.12051066]]
+Batch number: 18000	| RMSE: [[1.12741265]]
+Current epoch: 2
+Batch number: 0	| RMSE: [[1.143518491]]
+Batch number: 2000	| RMSE: [[1.13611048]]
+Batch number: 4000	| RMSE: [[1.12318317]]
+Batch number: 6000	| RMSE: [[1.13201036]]
+Batch number: 8000	| RMSE: [[1.10877238]]
+Batch number: 10000	| RMSE: [[1.09151368]]
+Batch number: 12000	| RMSE: [[1.08810337]]
+Batch number: 14000	| RMSE: [[1.06962619]]
+Batch number: 16000	| RMSE: [[1.04129769]]
+Batch number: 18000	| RMSE: [[1.03210260]]
+Training is completed
+Final RMSE: [[1.09127970]]
+===
+New split
+Starting training
+Step:  0.01
+Current epoch: 0
+Batch number: 0	| RMSE: [[4.21568397]]
+Batch number: 2000	| RMSE: [[1.36996328]]
+Batch number: 4000	| RMSE: [[1.26216123]]
+Batch number: 6000	| RMSE: [[1.27542991]]
+Batch number: 8000	| RMSE: [[1.21428370]]
+Batch number: 10000	| RMSE: [[1.18715364]]
+Batch number: 12000	| RMSE: [[1.17697311]]
+Batch number: 14000	| RMSE: [[1.17341296]]
+Batch number: 16000	| RMSE: [[1.16148316]]
+Batch number: 18000	| RMSE: [[1.16103678]]
+Current epoch: 1
+Batch number: 0	| RMSE: [[1.16762353]]
+Batch number: 2000	| RMSE: [[1.14087523]]
+Batch number: 4000	| RMSE: [[1.13895642]]
+Batch number: 6000	| RMSE: [[1.13795896]]
+Batch number: 8000	| RMSE: [[1.13702159]]
+Batch number: 10000	| RMSE: [[1.12982528]]
+Batch number: 12000	| RMSE: [[1.12902159]]
+Batch number: 14000	| RMSE: [[1.12670018]]
+Batch number: 16000	| RMSE: [[1.12069711]]
+Batch number: 18000	| RMSE: [[1.11997652]]
+Current epoch: 2
+Batch number: 0	| RMSE: [[1.135518798]]
+Batch number: 2000	| RMSE: [[1.12971588]]
+Batch number: 4000	| RMSE: [[1.12351829]]
+Batch number: 6000	| RMSE: [[1.12971514]]
+Batch number: 8000	| RMSE: [[1.11029734]]
+Batch number: 10000	| RMSE: [[1.09201805]]
+Batch number: 12000	| RMSE: [[1.09015972]]
+Batch number: 14000	| RMSE: [[1.08718264]]
+Batch number: 16000	| RMSE: [[1.06185418]]
+Batch number: 18000	| RMSE: [[1.07153942]]
+Training is completed
+Final RMSE: [[1.05158970]]
+===
+New split
+Starting training
+Step:  0.01
+Current epoch: 0
+Batch number: 0	| RMSE: [[4.39741358]]
+Batch number: 2000	| RMSE: [[1.24389741]]
+Batch number: 4000	| RMSE: [[1.20413789]]
+Batch number: 6000	| RMSE: [[1.18752796]]
+Batch number: 8000	| RMSE: [[1.16209541]]
+Batch number: 10000	| RMSE: [[1.15603246]]
+Batch number: 12000	| RMSE: [[1.15095723]]
+Batch number: 14000	| RMSE: [[1.14530256]]
+Batch number: 16000	| RMSE: [[1.14112948]]
+Batch number: 18000	| RMSE: [[1.13457048]]
+Current epoch: 1
+Batch number: 0	| RMSE: [[1.16104064]]
+Batch number: 2000	| RMSE: [[1.14301967]]
+Batch number: 4000	| RMSE: [[1.13195724]]
+Batch number: 6000	| RMSE: [[1.13315810]]
+Batch number: 8000	| RMSE: [[1.13120974]]
+Batch number: 10000	| RMSE: [[1.12004727]]
+Batch number: 12000	| RMSE: [[1.13028682]]
+Batch number: 14000	| RMSE: [[1.12412992]]
+Batch number: 16000	| RMSE: [[1.12352310]]
+Batch number: 18000	| RMSE: [[1.12210102]]
+Current epoch: 2
+Batch number: 0	| RMSE: [[1.13620857]]
+Batch number: 2000	| RMSE: [[1.12781031]]
+Batch number: 4000	| RMSE: [[1.11987126]]
+Batch number: 6000	| RMSE: [[1.11786210]]
+Batch number: 8000	| RMSE: [[1.11452975]]
+Batch number: 10000	| RMSE: [[1.11015887]]
+Batch number: 12000	| RMSE: [[1.10010983]]
+Batch number: 14000	| RMSE: [[1.09781024]]
+Batch number: 16000	| RMSE: [[1.09618102]]
+Batch number: 18000	| RMSE: [[1.09634029]]
+Training is completed
+Final RMSE: [[1.09712486]]
+===
+New split
+Starting training
+Step:  0.01
+Current epoch: 0
+Batch number: 0	| RMSE: [[4.49818508]]
+Batch number: 2000	| RMSE: [[1.36996328]]
+Batch number: 4000	| RMSE: [[1.26216123]]
+Batch number: 6000	| RMSE: [[1.21428370]]
+Batch number: 8000	| RMSE: [[1.20860394]]
+Batch number: 10000	| RMSE: [[1.19983386]]
+Batch number: 12000	| RMSE: [[1.17341296]]
+Batch number: 14000	| RMSE: [[1.17358110]]
+Batch number: 16000	| RMSE: [[1.17101862]]
+Batch number: 18000	| RMSE: [[1.16910159]]
+Current epoch: 1
+Batch number: 0	| RMSE: [[1.20597158]]
+Batch number: 2000	| RMSE: [[1.16358971]]
+Batch number: 4000	| RMSE: [[1.15982014]]
+Batch number: 6000	| RMSE: [[1.14736891]]
+Batch number: 8000	| RMSE: [[1.14182103]]
+Batch number: 10000	| RMSE: [[1.12697156]]
+Batch number: 12000	| RMSE: [[1.12348620]]
+Batch number: 14000	| RMSE: [[1.11823029]]
+Batch number: 16000	| RMSE: [[1.11615006]]
+Batch number: 18000	| RMSE: [[1.11781896]]
+Current epoch: 2
+Batch number: 0	| RMSE: [[1.13510589]]
+Batch number: 2000	| RMSE: [[1.12615198]]
+Batch number: 4000	| RMSE: [[1.11812986]]
+Batch number: 6000	| RMSE: [[1.11618815]]
+Batch number: 8000	| RMSE: [[1.10941936]]
+Batch number: 10000	| RMSE: [[1.09191507]]
+Batch number: 12000	| RMSE: [[1.09912023]]
+Batch number: 14000	| RMSE: [[1.08791029]]
+Batch number: 16000	| RMSE: [[1.08618711]]
+Batch number: 18000	| RMSE: [[1.08519303]]
+Training is completed
+Final RMSE: [[1.06408214]]
