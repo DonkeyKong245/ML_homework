@@ -285,11 +285,13 @@ def restore_df():
 
 def restore_csr():
     csr_file_path = os.path.join(data_set_folder, csr_file_name)
-    return joblib.load(csr_file_path)
+    csr = joblib.load(csr_file_path)
+    return csr.astype(numpy.float32)
 
 
-def restore_df_target():
-    return joblib.load(os.path.join(data_set_folder, df_prefix + target_keyword))
+def restore_csr_target():
+    df_target = joblib.load(os.path.join(data_set_folder, df_prefix + target_keyword))
+    return sparse.csr_matrix(df_target, dtype=numpy.float32)
 
 
 def df_to_csr(df):
