@@ -112,7 +112,7 @@ for n_train, n_test in kfold.split(X):
     Y_train = Y[n_train]
     Y_test = Y[n_test]
 
-    w, b, V = train(X_train, Y_train, step=1e-1, batch_size=1024, k=3, epochs_count=10)
+    w, b, V = train(X_train, Y_train, step=1e-1, batch_size=4096, k=3, epochs_count=10)
 
     print('Training is completed')
     Y_trained = compute_two_way_fm(X_test, V, w, b)
