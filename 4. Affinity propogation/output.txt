@@ -1,0 +1,23 @@
+C:\Program Files\Python38\lib\site-packages\sklearn\externals\joblib\__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Restoring dataset... Success
+Computing S matrix... Success
+Processing affinity propogation...
+Iteration: 0	Number of clusters: 4869
+Iteration: 1	Number of clusters: 13412
+Iteration: 2	Number of clusters: 17073
+Iteration: 3	Number of clusters: 21456
+Iteration: 4	Number of clusters: 22736
+Iteration: 5	Number of clusters: 23895
+Iteration: 6	Number of clusters: 24307
+Iteration: 7	Number of clusters: 24538
+Iteration: 8	Number of clusters: 24687
+Iteration: 9	Number of clusters: 24725
+Iteration: 10	Number of clusters: 24767
+Iteration: 11	Number of clusters: 24792
+Iteration: 12	Number of clusters: 24813
+Iteration: 13	Number of clusters: 24827
+Iteration: 14	Number of clusters: 24844
+Success
+Base accuracy: 0.018312
+Cluster accuracy: 0.049846
