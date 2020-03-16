@@ -26,69 +26,55 @@ def compute_S_and_indices(graph, edge_value=1, cycle_edge_value=-2, add_noise=Fa
 
 
 def affinity_propogation(S, S_indices, max_iterations=15, smoothing_factor=0.5):
-    csr_correction_value = 10000.
+    csc_correction_value = 10000.
     number_of_samples = S.shape[0]
 
-    A = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-    R = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-    S_csr = S.tocsr()
+    A = sp.csc_matrix((np.repeat(0.0, S_indices[0].size), (S_indices[0], S_indices[1])), dtype=np.float32)
+    R = sp.csc_matrix((np.repeat(0.0, S_indices[0].size), (S_indices[0], S_indices[1])), dtype=np.float32)
+    S = S.tocsc()
     rows = np.arange(0, number_of_samples)
     
-    csr_correction = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-    csr_correction[S_indices[0], S_indices[1]] = csr_correction_value
-    csr_correction = csr_correction.tocsr()
+    csc_correction = sp.csr_matrix(
+        (np.repeat(csc_correction_value, S_indices[0].size), (S_indices[0], S_indices[1])), 
+        dtype=np.float32)
     
     for iteration in range(max_iterations):
         # Calculate responsibilities
-        tmp_sums = A.tocsr() + S_csr + csr_correction
-        tmp_sums.eliminate_zeros()
+        tmp = A + S + csc_correction
 
         # Find first maximum arguments
-        rows_maximum_args = np.asarray(tmp_sums.argmax(axis=1)).flatten()
+        rows_maximum_args = np.asarray(tmp.argmax(axis=1)).flatten()
+        rows_maximums = tmp.max(axis=1).toarray().flatten()
 
         # Find second maximums
-        tmp_sums_copy = tmp_sums.copy()
-        tmp_sums_copy[rows, rows_maximum_args] = -np.inf
-        rows_pre_maximum_args = np.asarray(tmp_sums_copy.argmax(axis=1)).flatten()
-
-        # Prepare maximums matrix
-        tmp_maximums = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-        tmp_maximums[S_indices[0], S_indices[1]] = np.asarray(tmp_sums[rows, rows_maximum_args]).flatten()[S_indices[0]]
-        tmp_maximums[rows, rows_maximum_args] = tmp_sums[rows, rows_pre_maximum_args]
-
-        maximums = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-        maximums[S_indices[0], S_indices[1]] = tmp_maximums[S_indices[0], S_indices[1]]
-        maximums = maximums.tocsr()
-        maximums -= csr_correction
-        maximums.eliminate_zeros()
+        tmp_copy = tmp.copy()
+        tmp_copy[rows, rows_maximum_args] = -np.inf
+        rows_pre_maximums = tmp_copy.max(axis=1).toarray().flatten()
+        
+        # Populate maximums
+        tmp.data = rows_maximums[S_indices[0]]
+        tmp[rows, rows_maximum_args] = rows_pre_maximums
+        tmp -= csc_correction
 
         old_R = R.copy()
-        R = S_csr - maximums
-        R.eliminate_zeros()
+        R = S - tmp
         
         # Exponential smoothing
         R = smoothing_factor * old_R + (1. - smoothing_factor) * R
 
         # Calculate availabilities        
         # Remove all values which are less then zero
-        tmp_R = R.copy()
-        tmp_R[tmp_R < 0] = 0
-        tmp_R = tmp_R.tocsr()
-        tmp_R.eliminate_zeros()
-        
-        tmp_R_diagonal = tmp_R.diagonal()   
-        tmp_R_column_sums_minus_diagonal = np.asarray(tmp_R.sum(axis=0)).flatten() \
-                                           - tmp_R_diagonal
-                            
-        tmp_A = sp.lil_matrix((number_of_samples, number_of_samples), dtype=np.float32)
-        tmp_A[S_indices[0], S_indices[1]] = (tmp_R_column_sums_minus_diagonal + R.diagonal()).flatten()[S_indices[1]]
-        tmp_A[S_indices[0], S_indices[1]] -= tmp_R[S_indices[0], S_indices[1]]
-        
+        positive_R = R.copy()
+        positive_R[positive_R < 0] = 0
+        positive_R_diagonal = positive_R.diagonal() 
+        positive_R_column_sums = np.asarray(positive_R.sum(axis=0)).flatten()
+        positive_R_column_sums_minus_diagonal = positive_R_column_sums - positive_R_diagonal
+                
         old_A = A.copy()
-        tmp_A[tmp_A > 0] = 0
-        tmp_A.setdiag(tmp_R_column_sums_minus_diagonal)        
-        A = tmp_A.tocsr()
-        A.eliminate_zeros()
+        A.data = (positive_R_column_sums_minus_diagonal + R.diagonal()).flatten()[S_indices[1]]
+        A -= positive_R
+        A[A > 0] = 0
+        A.setdiag(positive_R_column_sums_minus_diagonal)
         
         # Exponential smoothing
         A = smoothing_factor * old_A + (1. - smoothing_factor) * A
@@ -220,6 +206,9 @@ print("Success")
 cluster_indexes = get_cluster_indexes(A, R, S_indices)
 cluster_sizes = calculate_cluster_sizes(cluster_indexes)
 clusters_df = get_clusters_df(cluster_indexes)
+
+print(clusters_df.head(10))
+
 checkins = checkins_helper.get_checkins()
 users = checkins_helper.get_users(checkins)
 combined_df = get_combined_df(cluster_indexes, checkins)
@@ -230,3 +219,10 @@ cluster_locations_ranked = rank_cluster_locations(train_df)
 location_prediction_acc, cluster_acc = calculate_metrics(cluster_indexes, test_users, test_df, locations_top_k_uniq, cluster_locations_ranked, k)
 print("Location prediction accuracy: %.6f" % location_prediction_acc)
 print("Cluster accuracy: %.6f" % cluster_acc)
+
+import matplotlib.pyplot as plt
+
+plt.hist(cluster_indexes, bins=500)
+plt.ylabel('Cluster size')
+plt.xlabel('Cluster center index')
+plt.show()

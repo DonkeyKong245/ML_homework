@@ -1,0 +1,33 @@
+Restoring dataset... Success
+Computing S matrix... Success
+Processing affinity propogation...
+Iteration: 0	Number of clusters: 4869
+Iteration: 1	Number of clusters: 12843
+Iteration: 2	Number of clusters: 21996
+Iteration: 3	Number of clusters: 36695
+Iteration: 4	Number of clusters: 50129
+Iteration: 5	Number of clusters: 55741
+Iteration: 6	Number of clusters: 57680
+Iteration: 7	Number of clusters: 58608
+Iteration: 8	Number of clusters: 59079
+Iteration: 9	Number of clusters: 59349
+Iteration: 10	Number of clusters: 59582
+Iteration: 11	Number of clusters: 59670
+Iteration: 12	Number of clusters: 59827
+Iteration: 13	Number of clusters: 60023
+Iteration: 14	Number of clusters: 60179
+Success
+[54680 rows x 2 columns]
+   Cluster index  Count
+0            220   9592
+1            440   3323
+2              0   2879
+3            505   2821
+4            307   2555
+5           1149   2499
+6            459   2087
+7              3   2016
+8              2   1976
+9              1   1562
+Location prediction accuracy: 0.017751
+Cluster accuracy: 0.033906
